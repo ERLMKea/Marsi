@@ -22,8 +22,6 @@ public class Foto {
 
     @JsonProperty("photos")
     private List<Photo> photos = null;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("photos")
     public List<Photo> getPhotos() {
@@ -35,14 +33,5 @@ public class Foto {
         this.photos = photos;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
 }
