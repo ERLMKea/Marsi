@@ -3,6 +3,9 @@ package com.example.marsi.model;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,11 +20,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "rover_id",
     "full_name"
 })
+
+@Entity
 @Generated("jsonschema2pojo")
 public class Camera {
 
+    @Id
     @JsonProperty("id")
-    private Integer id;
+    private Integer cameraId;
+
     @JsonProperty("name")
     private String name;
     @JsonProperty("rover_id")
@@ -30,13 +37,13 @@ public class Camera {
     private String fullName;
 
     @JsonProperty("id")
-    public Integer getId() {
-        return id;
+    public Integer getCameraId() {
+        return cameraId;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCameraId(Integer id) {
+        this.cameraId = id;
     }
 
     @JsonProperty("name")

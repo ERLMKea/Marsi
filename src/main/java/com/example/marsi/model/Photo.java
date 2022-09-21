@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -34,13 +36,21 @@ public class Photo {
 
     @JsonProperty("sol")
     private Integer sol;
+
+    @ManyToOne
     @JsonProperty("camera")
+    @JoinColumn(name = "camera_id")
     private Camera camera;
+
+
     @JsonProperty("img_src")
     private String imgSrc;
     @JsonProperty("earth_date")
     private String earthDate;
+
+    @ManyToOne
     @JsonProperty("rover")
+    @JoinColumn(name = "rover_id")
     private Rover rover;
 
     @JsonProperty("id")

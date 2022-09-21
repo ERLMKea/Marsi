@@ -4,6 +4,9 @@ package com.example.marsi.model;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,11 +22,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "launch_date",
     "status"
 })
+
+@Entity
 @Generated("jsonschema2pojo")
 public class Rover {
 
+    @Id
     @JsonProperty("id")
-    private Integer id;
+    private Integer roverId;
+
     @JsonProperty("name")
     private String name;
     @JsonProperty("landing_date")
@@ -32,17 +39,15 @@ public class Rover {
     private String launchDate;
     @JsonProperty("status")
     private String status;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("id")
-    public Integer getId() {
-        return id;
+    public Integer getRoverId() {
+        return roverId;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRoverId(Integer id) {
+        this.roverId = id;
     }
 
     @JsonProperty("name")
@@ -83,16 +88,6 @@ public class Rover {
     @JsonProperty("status")
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }
