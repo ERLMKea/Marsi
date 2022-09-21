@@ -37,16 +37,28 @@ public class Photo {
     @JsonProperty("sol")
     private Integer sol;
 
+    @JsonProperty("img_src")
+    private String imgSrc;
+    @JsonProperty("earth_date")
+    private String earthDate;
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @ManyToOne
     @JsonProperty("camera")
     @JoinColumn(name = "camera_id")
     private Camera camera;
 
 
-    @JsonProperty("img_src")
-    private String imgSrc;
-    @JsonProperty("earth_date")
-    private String earthDate;
+
 
     @ManyToOne
     @JsonProperty("rover")

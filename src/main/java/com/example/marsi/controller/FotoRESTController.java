@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 public class FotoRESTController {
@@ -42,7 +44,15 @@ public class FotoRESTController {
         }
         lstPhotos = photoRepository.findAll();
         return lstPhotos;
+    }
 
+    @GetMapping("/photosdescr")
+    List<Photo> getPhotosDesc() {
+        List<Photo> lstPhotos = photoRepository.findAll();
+        lstPhotos = lstPhotos.stream().filter(f -> Objects.nonNull(f.getDescription()))
+                .filter(f -> f.getDescription().length()>0)
+                .collect(Collectors.toList());
+        return lstPhotos;
     }
 
 }
