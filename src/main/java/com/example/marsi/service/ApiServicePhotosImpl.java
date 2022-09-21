@@ -18,12 +18,17 @@ public class ApiServicePhotosImpl implements ApiServicePhotos{
         this.restTemplate = restTemplate;
     }
 
-    String rogerUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY";
+    String rogerUrlDemoKey = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY";
+    String rogerUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=";
+
+    String preserverenceLatestUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?api_key=";
+    String apiKey = "cXrM4POFLGgBFlOOAbiEk3K0q2NfzynY0Ckydqap";
 
     @Override
     public List<Photo> getPhotos() {
+        String url = rogerUrl + apiKey;
         ResponseEntity<Foto> photoResponse =
-                restTemplate.exchange(rogerUrl,
+                restTemplate.exchange(url,
                         HttpMethod.GET, null, new ParameterizedTypeReference<Foto>() {
                         });
         Foto foto = photoResponse.getBody();
