@@ -4,6 +4,8 @@ package com.example.marsi.model;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -21,11 +23,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "earth_date",
     "rover"
 })
+
+@Entity
 @Generated("jsonschema2pojo")
 public class Photo {
 
+    @Id
     @JsonProperty("id")
     private Integer id;
+
     @JsonProperty("sol")
     private Integer sol;
     @JsonProperty("camera")
@@ -36,8 +42,6 @@ public class Photo {
     private String earthDate;
     @JsonProperty("rover")
     private Rover rover;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("id")
     public Integer getId() {
@@ -99,14 +103,5 @@ public class Photo {
         this.rover = rover;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
 }
