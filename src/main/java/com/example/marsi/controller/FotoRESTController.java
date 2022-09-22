@@ -6,6 +6,7 @@ import com.example.marsi.repository.PhotoRepository;
 import com.example.marsi.repository.RoverRepository;
 import com.example.marsi.service.ApiServicePhotos;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 public class FotoRESTController {
 
     @Autowired
@@ -65,6 +67,15 @@ public class FotoRESTController {
                 .collect(Collectors.toList());
         return lstPhotos;
     }
+
+    @GetMapping("/photosfromnavcamera")
+    List<Photo> getPhotosFromNavCamera() {
+        List<Photo> lstPhotos = photoRepository.findAll();
+        lstPhotos = lstPhotos.stream().filter(f -> f.getCamera().getCameraId() == 26)
+                .collect(Collectors.toList());
+        return lstPhotos;
+    }
+
 
 }
 
