@@ -7,6 +7,7 @@ import com.example.marsi.repository.RoverRepository;
 import com.example.marsi.service.ApiServicePhotos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,6 +32,16 @@ public class FotoRESTController {
     @GetMapping("/photos")
     List<Photo> getPhotos() {
         return apiServicePhotos.getPhotos();
+    }
+
+    @GetMapping("savedescr/{descr}")
+    List<Photo> saveDescription(@PathVariable String descr) {
+        List<Photo> lstPhoto = photoRepository.findAll();
+        for (Photo ph: lstPhoto) {
+            ph.setDescription(descr);
+            photoRepository.save(ph);
+        }
+        return lstPhoto;
     }
 
 
