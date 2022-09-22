@@ -6,13 +6,13 @@ import com.example.marsi.repository.PhotoRepository;
 import com.example.marsi.repository.RoverRepository;
 import com.example.marsi.service.ApiServicePhotos;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -76,6 +76,16 @@ public class FotoRESTController {
         return lstPhotos;
     }
 
+    @PutMapping("/photo/{id}")
+    public ResponseEntity<Photo> updatePhoto(@PathVariable String id, @RequestBody Photo photo) {
+        Optional<Photo> orgPhoto = photoRepository.findById(photo.getId());
+        if (orgPhoto.isPresent()) {
+            photoRepository.save(photo);
+            return new ResponseEntity<>(orgPhoto.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new Photo(), HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
 
