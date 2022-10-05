@@ -1,5 +1,6 @@
 package com.example.marsi.controller;
 
+import com.example.marsi.model.Camera;
 import com.example.marsi.model.Photo;
 import com.example.marsi.repository.CameraRepository;
 import com.example.marsi.repository.PhotoRepository;
@@ -36,6 +37,13 @@ public class FotoRESTController {
         return apiServicePhotos.getPhotos();
     }
 
+
+    @GetMapping("/cameras")
+    List<Camera> getCameras() {
+        return cameraRepository.findAll();
+    }
+
+
     @GetMapping("savedescr/{descr}")
     List<Photo> saveDescription(@PathVariable String descr) {
         List<Photo> lstPhoto = photoRepository.findAll();
@@ -71,7 +79,8 @@ public class FotoRESTController {
     @GetMapping("/photosfromnavcamera")
     List<Photo> getPhotosFromNavCamera() {
         List<Photo> lstPhotos = photoRepository.findAll();
-        lstPhotos = lstPhotos.stream().filter(f -> f.getCamera().getCameraId() == 26)
+        lstPhotos = lstPhotos.stream().filter(f -> Objects.nonNull(f.getCamera()))
+                                .filter(f -> f.getCamera().getCameraId() > 20)
                 .collect(Collectors.toList());
         return lstPhotos;
     }
@@ -87,6 +96,11 @@ public class FotoRESTController {
         }
     }
 
+    @PostMapping("/photo")
+    public ResponseEntity<Photo> updatePhoto(@RequestBody Photo photo) {
+        photoRepository.save(photo);
+        return new ResponseEntity<>(photo, HttpStatus.OK);
+    }
 
 
 }
