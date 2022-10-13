@@ -22,5 +22,8 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
 
     List<Photo> findPhotoByCameraCameraId(Integer id);
 
+    List<Photo> findPhotoByIdBetween(Integer id1, Integer id2);
+
+
 }
 

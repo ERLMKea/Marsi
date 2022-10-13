@@ -1,8 +1,10 @@
 package com.example.marsi.controller;
 
+import com.example.marsi.model.Camera;
 import com.example.marsi.model.Photo;
 import com.example.marsi.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,6 +56,18 @@ public class JPQLRESTController {
         return photoRepository.findPhotoByCameraCameraId(cameraid);
     }
 
+    @GetMapping("/photosids/{id1}/{id2}")
+    List<Photo> getPhotosBetweenId(@PathVariable Integer id1, @PathVariable Integer id2) {
+        Photo photo = new Photo();
+        photo.setId(id1);
+        Camera camera = new Camera();
+        camera.setCameraId(id2);
+        photo.setCamera(camera);
+
+        //Photo photo2 = new Photo();
+        //photo2.setDescription("%nice%");
+        return photoRepository.findAll(Example.of(photo));
+    }
 
 
 }
