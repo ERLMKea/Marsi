@@ -9,6 +9,13 @@ public class ErrorMessage {
     private String message;
     private String description;
 
+    public ErrorMessage(int statusCode, Date timeStamp, String message, String description) {
+        this.statusCode = statusCode;
+        this.timeStamp = timeStamp;
+        this.message = message;
+        this.description = description;
+    }
+
     public int getStatusCode() {
         return statusCode;
     }
