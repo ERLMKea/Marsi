@@ -1,15 +1,24 @@
 package com.example.marsi.controller;
 
+import com.example.marsi.model.Photo;
+import com.example.marsi.repository.PhotoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "exp/")
 public class ExceptController {
+
+    @Autowired
+    PhotoRepository photoRepository;
 
     @GetMapping("/")
     public String hello() {
@@ -55,4 +64,20 @@ public class ExceptController {
         return x;
     }
 
+    @GetMapping("/photo/{id}")
+    public ResponseEntity<Photo> findPhotoById(@PathVariable int id) {
+        Optional<Photo> obj = photoRepository.findById(id);
+        if (obj.isPresent()) {
+            return new ResponseEntity<>(obj.get(), HttpStatus.OK);
+        } else {
+            Photo ph = new Photo();
+            ph.setDescription("Not Found");
+            return new ResponseEntity<>(ph, HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
 }
+
+
