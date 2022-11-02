@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "pag/")
@@ -38,16 +40,36 @@ public class PagingController {
     }
 
     @GetMapping("page")
-    public ResponseEntity<List<Photo>> getPageOfPhotos(@RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<List<Photo>> getPageOfPhotos(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         Page<Photo> pagePhoto = photoRepository.findAll(pageRequest);
-        List<Photo> lstCounties = pagePhoto.getContent();
-        if (lstCounties.isEmpty())
+        List<Photo> lstPhotos = pagePhoto.getContent();
+        if (lstPhotos.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<>(lstCounties, HttpStatus.OK);
+        return new ResponseEntity<>(lstPhotos, HttpStatus.OK);
 
     }
 
+    @GetMapping("pageinfo")
+    public ResponseEntity<Map<String, Object>> getPageOfPhotosInfo(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        Page<Photo> pagePhoto = photoRepository.findAll(pageRequest);
+        List<Photo> lstPhotos = pagePhoto.getContent();
+        if (lstPhotos.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("photos", lstPhotos);
+        response.put("currentPage", pagePhoto.getNumber());
+        response.put("totalitems", pagePhoto.getTotalElements());
+        response.put("totalPages", pagePhoto.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
+
