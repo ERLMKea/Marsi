@@ -1,5 +1,6 @@
 package com.example.marsi.controller;
 
+import com.example.marsi.exception.ResourceNotFoundException;
 import com.example.marsi.model.Photo;
 import com.example.marsi.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,8 +78,8 @@ public class ExceptController {
         return x;
     }
 
-    @GetMapping("/photo/{id}")
-    public ResponseEntity<Photo> findPhotoById(@PathVariable int id) {
+    @GetMapping("/photox/{id}")
+    public ResponseEntity<Photo> findPhotoByIdx(@PathVariable int id) {
         Optional<Photo> obj = photoRepository.findById(id);
         if (obj.isPresent()) {
             return new ResponseEntity<>(obj.get(), HttpStatus.OK);
@@ -89,6 +90,15 @@ public class ExceptController {
         }
 
     }
+
+    @GetMapping("/photo/{id}")
+    public ResponseEntity<Photo> findPhotoById(@PathVariable int id) {
+        Photo ph = photoRepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("We couldnt find photo with id = " + id)
+        );
+        return new ResponseEntity<>(ph, HttpStatus.OK);
+    }
+
 
 
 }
