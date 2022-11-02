@@ -21,4 +21,17 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(ArithmeticException.class)
+    public ResponseEntity<ErrorMessage> globalArithmeticExceptionHandler(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.I_AM_A_TEAPOT.value(),
+                new Date(),
+                "Now you just divided by zero " + ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(message, HttpStatus.I_AM_A_TEAPOT);
+
+    }
+
+
 }
