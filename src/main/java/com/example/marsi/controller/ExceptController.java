@@ -48,11 +48,24 @@ public class ExceptController {
         return fileContent;
     }
 
-    @GetMapping("/div/{divnum}")
-    public int getdivnum(@PathVariable int divnum) {
+    @GetMapping("/divx/{divnum}")
+    public int getdivnumx(@PathVariable int divnum) {
         int i1 = 100;
         int i2 = i1/divnum;
         return i2;
+    }
+
+    @GetMapping("/div/{divnum}")
+    public int getdivnum(@PathVariable int divnum) {
+        int i1 = 100;
+        try {
+            int i2 = i1/divnum;
+            i1 = i2;
+        } catch (ArithmeticException ae) {
+            System.out.println("ae=" + ae);
+        }
+
+        return i1;
     }
 
     @GetMapping("/loop/{loopnum}")
