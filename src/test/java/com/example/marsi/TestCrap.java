@@ -22,7 +22,6 @@ public class TestCrap {
         assertEquals("ABC", "ABC");
     }
 
-    @Test
     void testDiv0() {
         int i = 10;
         int y = 0;

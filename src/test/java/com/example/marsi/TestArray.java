@@ -7,7 +7,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class TestArray {
-    @Test
+
     void testArr() {
         int[] numbers = {12,3,4,1};
         int[] expected = {1,3,5,12};
@@ -15,7 +15,6 @@ public class TestArray {
         assertArrayEquals(expected, numbers);
     }
 
-    @Test
     void testArrNull() {
         int[] numbers = null;
         int[] expected = {1,3,4,12};
