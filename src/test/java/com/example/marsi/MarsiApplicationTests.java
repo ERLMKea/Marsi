@@ -14,24 +14,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@SpringBootTest
 class MarsiApplicationTests {
-
-    @Autowired
-    CameraRepository cameraRepository;
-
-
-    @Test
-    void testSomeCameras() {
-        List<Camera> cameras = cameraRepository.findAll();
-        assertEquals(true, cameras.size()>0);
-    }
-
-    @Test
-    void testCameraId() {
-        Optional<Camera> opt = cameraRepository.findById(20);
-        assertEquals(true, opt.isPresent());
-    }
 
 
 }
