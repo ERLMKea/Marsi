@@ -20,12 +20,12 @@ public class Hamcrest {
         assertThat(scores, everyItem(lessThan(190)));
 
         //String
-        assertThat("", isEmptyString());
-        assertThat(null, isEmptyOrNullString());
+        assertThat("", blankString());
+        assertThat(null, blankOrNullString());
 
         //Arrays
         Integer[] marks = {1, 2, 3, 4};
-        assertThat(marks, arrayWithSize(3));
+        assertThat(marks, arrayWithSize(4));
         assertThat(marks, arrayContaining(1,2,3,4));
     }
 
