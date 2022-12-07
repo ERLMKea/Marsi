@@ -23,7 +23,7 @@ public class ExceptController {
 
     @GetMapping("/")
     public String hello() {
-        return "hej";
+        return "hej xxx";
     }
 
     @GetMapping("/file/{filename}")
